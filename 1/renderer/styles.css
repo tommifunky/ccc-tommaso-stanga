@@ -1,0 +1,135 @@
+body {
+  -webkit-app-region: drag;
+  font-family: monospace;
+  font-size: 12px;
+  background-color: black;
+  color: white;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+#quadrants-layer {
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  border: white solid 1px;
+}
+
+.quadrant {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transition: all 0.2s ease;
+  transform-origin: center center;
+}
+
+#quadrant-battery {
+  top: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: 100% 100%;
+}
+
+#quadrant-cpu {
+  top: 0;
+  right: 0;
+  background-color: grey;
+  transform-origin: 0% 100%;
+}
+
+#quadrant-ram {
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  transform-origin: 0% 0%;
+}
+
+#quadrant-thermometer {
+  bottom: 0;
+  left: 0;
+  background-color: grey;
+  transform-origin: 100% 0%;
+}
+
+#compass-layer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+#compass-needle {
+  width: 1px;
+  height: 160px;
+  background-color: white;
+  position: absolute;
+  top: 168px;
+  left: 50%;
+  transform-origin: 50% 0%;
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+  border: 1px solid;
+  border-color: black;
+  z-index: 1;
+}
+
+#line-north {
+  width: 1px;
+  height: 160px;
+  background-color: white;
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform-origin: 50% 0%;
+  transform: rotate(0deg);
+}
+
+#line-east {
+  width: 1px;
+  height: 160px;
+  background-color: white;
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform-origin: 50% 0%;
+  transform: rotate(90deg);
+}
+
+#line-south {
+  width: 1px;
+  height: 160px;
+  background-color: white;
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform-origin: 50% 0%;
+  transform: rotate(180deg);
+}
+
+#line-west {
+  width: 1px;
+  height: 160px;
+  background-color: white;
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform-origin: 50% 0%;
+  transform: rotate(270deg);
+}
+
+#info-panel {
+  position: absolute;
+  bottom: 6px;
+  left: 10px;
+}
+
+.stat {
+  margin: 2px 0;
+}

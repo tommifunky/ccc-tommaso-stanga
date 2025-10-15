@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CC</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <div id="background-layer"></div>
+
+    <div id="quadrants-layer" class="layer">
+      <div class="quadrant" id="quadrant-battery"></div>
+      <div class="quadrant" id="quadrant-cpu"></div>
+      <div class="quadrant" id="quadrant-ram"></div>
+      <div class="quadrant" id="quadrant-thermometer"></div>
+    </div>
+
+    <div id="compass-layer" class="layer">
+      <div id="compass-needle"></div>
+      <div id="line-north"></div>
+      <div id="line-east"></div>
+      <div id="line-south"></div>
+      <div id="line-west"></div>
+    </div>
+
+    <div id="info-panel">
+      <div class="stat">Battery: <span id="battery">...</span>%</div>
+      <div class="stat">CPU Load: <span id="cpu">...</span>%</div>
+      <div class="stat">CPU Thermometer: <span id="cpu-thermometer">0%</span></div>
+      <div class="stat">RAM Usage: <span id="ram">...</span>%</div>
+      <div class="stat">Uptime: <span id="uptime">00:00:00</span></div>
+      <div class="stat">Mouse: <span id="mouse-coords">--</span></div>
+      <div class="stat">Velocità: <span id="mouse-speed">--</span></div>
+    </div>
+
+    <script src="render.js"></script>
+  </body>
+</html>
