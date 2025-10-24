@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>System Monitor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div id="you"></div>
+      <div id="friend"></div>
+      <div id="friend2"></div>
+    </div>
+
+    <!-- Status display -->
+    <div class="status-display">
+      <div class="user-status">
+        <div class="user-name">You</div>
+        <div id="you-status" class="user-state active">active</div>
+      </div>
+      <div class="user-status">
+        <div class="user-name">Friend</div>
+        <div id="friend-status" class="user-state inactive">inactive</div>
+      </div>
+      <div class="user-status">
+        <div class="user-name">Friend2</div>
+        <div id="friend2-status" class="user-state inactive">inactive</div>
+      </div>
+    </div>
+
+    <!-- Elementi nascosti per i dati -->
+    <div id="time" class="time">00:00:00</div>
+    <div class="stat">Battery: <span id="batteria">...</span>%</div>
+    <div class="stat">CPU Load: <span id="cpu">...</span>%</div>
+    <div class="stat">RAM Usage: <span id="ram">...</span>%</div>
+    <div class="stat">Mouse Position: <span id="mouse-coords">--</span></div>
+    <div class="stat">Uptime: <span id="uptime">00:00:00</span></div>
+    <div class="stat">
+      CPU Thermometer<br />
+      <span id="cpu-thermometer-label">0%</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="render.js"></script>
+    <script src="db.js"></script>
+  </body>
+</html>

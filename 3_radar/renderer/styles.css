@@ -1,0 +1,255 @@
+:root {
+  --bg: #000000;
+  --grid-bg: rgba(26, 26, 26, 0.8);
+  --guide-color: rgba(255, 255, 255, 0.1);
+  --guide-color2: rgba(255, 255, 255, 0.3);
+  --guide-glow: rgba(255, 255, 255, 1);
+  --you-color: rgba(255, 50, 50, 0.8);
+  --you-glow: rgba(255, 50, 50, 0.4);
+  --friend-color: rgba(50, 150, 255, 0.8);
+  --friend-glow: rgba(50, 150, 255, 0.4);
+  --friend2-color: rgba(50, 255, 150, 0.8);
+  --friend2-glow: rgba(50, 255, 150, 0.4);
+  --active-color: #00ff00;
+  --inactive-color: #ff4444;
+  --text-color: rgba(200, 200, 200, 0.9);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  font-weight: 400;
+  color: white;
+  -webkit-app-region: drag;
+  overflow: hidden;
+}
+
+.wrap {
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+  position: relative;
+  padding-top: 10px;
+}
+
+/* Contenitore del grafico radar */
+.radar-container {
+  width: 230px;
+  height: 230px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Griglia del radar con effetto glow */
+.radar-grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Cerchi concentrici - ogni 20% */
+.concentric-circles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 207px;
+  height: 207px;
+  pointer-events: none;
+}
+
+.concentric-circles::before,
+.concentric-circles::after,
+.concentric-circle-80,
+.concentric-circle-60,
+.concentric-circle-40,
+.concentric-circle-20 {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Cerchio 100% - più spesso e visibile */
+.concentric-circles::before {
+  width: 207px;
+  height: 207px;
+  border: 1px solid var(--guide-color2);
+  opacity: 1;
+  filter: drop-shadow(0 0 3px var(--guide-glow));
+}
+
+/* Punto centrale 0% */
+.concentric-circles::after {
+  width: 3px;
+  height: 3px;
+  background: var(--guide-color2);
+  border-radius: 50%;
+  opacity: 1;
+  filter: drop-shadow(0 0 2px var(--guide-glow));
+}
+
+/* Cerchio 80% */
+.concentric-circle-80 {
+  width: 166px; /* 207 * 0.8 */
+  height: 166px;
+  border: 1px solid var(--guide-color);
+  opacity: 1;
+  filter: drop-shadow(0 0 2px var(--guide-glow));
+}
+
+/* Cerchio 60% */
+.concentric-circle-60 {
+  width: 124px; /* 207 * 0.6 */
+  height: 124px;
+  border: 1px solid var(--guide-color);
+  opacity: 1;
+  filter: drop-shadow(0 0 2px var(--guide-glow));
+}
+
+/* Cerchio 40% */
+.concentric-circle-40 {
+  width: 83px; /* 207 * 0.4 */
+  height: 83px;
+  border: 1px solid var(--guide-color);
+  opacity: 1;
+  filter: drop-shadow(0 0 1px var(--guide-glow));
+}
+
+/* Cerchio 20% */
+.concentric-circle-20 {
+  width: 41px; /* 207 * 0.2 */
+  height: 41px;
+  border: 1px solid var(--guide-color);
+  opacity: 1;
+  filter: drop-shadow(0 0 1px var(--guide-glow));
+}
+
+/* Etichette degli assi */
+.axis-label {
+  position: absolute;
+  font-size: 8px;
+  color: var(--guide-color);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.axis-label.cpu { top: 5%; left: 50%; }
+.axis-label.ram { top: 25%; left: 90%; }
+.axis-label.battery { top: 75%; left: 90%; }
+.axis-label.uptime { top: 95%; left: 50%; }
+.axis-label.mousex { top: 75%; left: 10%; }
+.axis-label.mousey { top: 25%; left: 10%; }
+
+/* Poligoni radar - SOLO BORDI */
+#you-polygon {
+  fill: transparent;
+  stroke: var(--you-color);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 2px var(--you-glow));
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#friend-polygon {
+  fill: transparent;
+  stroke: var(--friend-color);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 2px var(--friend-glow));
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#friend2-polygon {
+  fill: transparent;
+  stroke: var(--friend2-color);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 2px var(--friend2-glow));
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Cerchiolini sugli estremi degli assi */
+.axis-endpoint {
+  position: absolute;
+  width: 4px;            /* prima era 4px: area troppo piccola da “agganciare” */
+  height: 4px;
+  background: white;/* niente riempimento visibile */
+  border-radius: 50%;
+  border: 1px solid var(--guide-color2);
+  opacity: 0.5;
+  filter: drop-shadow(0 0 3px var(--guide-glow));
+  pointer-events: auto;   /* <— fondamentale! abilita hover/click */
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+
+/* Nascondi elementi non necessari */
+.stat, .time, #you, #friend, #friend2, .status-display, .wrap-absolute {
+  display: none;
+}
+
+.radar-container {
+  position: relative;
+}
+
+.radar-container .radar-grid {
+  position: relative;
+  z-index: 5;
+}
+
+.radar-container svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* SVG sotto ai punti */
+  pointer-events: none;
+}
+
+.axis-endpoint {
+  z-index: 10 !important; /* assicura che sia sopra tutto */
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+.radar-container { position: relative; }
+
+.radar-container svg {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 1;            /* SVG sotto */
+  pointer-events: none;  /* lascia passare gli eventi */
+}
+
+.radar-container .radar-grid {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 2;            /* griglia + endpoint sopra */
+}
+
+.axis-endpoint {
+  z-index: 9999;         /* i puntini sicuramente sopra */
+  pointer-events: auto;
+  
+}
+
+.axis-endpoint {
+  pointer-events: all !important;
+  
+}
+
+
+.axis-endpoint {
+  -webkit-app-region: no-drag;
+}
