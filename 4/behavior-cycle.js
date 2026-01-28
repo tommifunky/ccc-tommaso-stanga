@@ -621,7 +621,8 @@ class BehaviorCycle {
     // MODIFICA: Usa getSpriteName per ottenere la sprite corretta
     this.kernel.character.src = this.kernel.getSpriteName(currentFrame);
     
-    if (this.kernel.currentState === 'moving' && !this.isGlitching) {
+    // Piazza le impronte sempre quando si muove (non solo durante 'moving' state)
+    if (!this.isGlitching) {
         this.kernel.placeFootprintPixel(currentFrame);
     }
 }

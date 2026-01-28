@@ -276,7 +276,7 @@ class KernelFragment {
       const areaSize = Math.floor(Math.sqrt(multiplier)) + 1;
       
       for (let dx = -areaSize; dx <= areaSize; dx++) {
-        for (let dy = -areaSize; dy <= areaY; dy++) {
+        for (let dy = -areaSize; dy <= areaSize; dy++) {
           if (pixelsPlaced >= maxPixels) return; // Stop se raggiunti max
           
           const distance = Math.sqrt(dx * dx + dy * dy);
