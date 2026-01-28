@@ -1,0 +1,149 @@
+:root {
+  --grid-size: 10px;
+  --character-width: 15;
+  --character-height: 15;
+  --grid-margin: 4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+body {
+  background: transparent;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Courier New', monospace;
+  padding: calc(var(--grid-margin) * var(--grid-size)) 
+           calc(var(--grid-margin) * var(--grid-size)) 
+           0 
+           calc(var(--grid-margin) * var(--grid-size));
+  cursor: default;
+}
+
+#grid-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--grid-size));
+  grid-auto-rows: var(--grid-size);
+}
+
+.grid-cell {
+  width: var(--grid-size);
+  height: var(--grid-size);
+  border: 0.5px solid rgba(255, 255, 255, 0);
+  pointer-events: none;
+}
+
+.character {
+  position: absolute;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+  z-index: 1000;
+  transition: none !important;
+  width: calc(var(--character-width) * var(--grid-size));
+  height: calc(var(--character-height) * var(--grid-size));
+  opacity: 0.6 !important; /* Aggiunto: 60% opacità */
+}
+
+.additional-character {
+  z-index: 999;
+  opacity: 0.6 !important; /* Aggiunto: 60% opacità */
+}
+
+.character.glitching {
+  animation: glitch 0.1s infinite;
+  opacity: 0.6 !important; /* Aggiunto: mantiene 60% durante glitch */
+}
+
+.character.trembling {
+  animation: tremble 0.05s infinite;
+  opacity: 0.6 !important; /* Aggiunto: mantiene 60% durante tremble */
+}
+
+.character.stuck {
+  animation: stuckGlitch 0.2s infinite;
+  opacity: 0.42 !important; /* Modificato: 0.7 * 0.6 = 0.42 per proporzione */
+}
+
+.exclamation {
+  pointer-events: none;
+  transition: none;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  opacity: 0.6 !important; /* Aggiunto: 60% opacità */
+}
+
+.footprint-pixel {
+  position: absolute;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  z-index: 500;
+  pointer-events: none;
+  opacity: 0.6 !important; /* Modificato: da 1 a 0.6 (60%) */
+  transition: opacity 0.3s ease;
+}
+
+.hand-pixel {
+    position: absolute;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    z-index: 2000 !important; /* Modificato: da 400 a 2000 per essere sopra tutto */
+    pointer-events: none;
+    opacity: 0.6 !important; /* Modificato: da 1 a 0.6 (60%) */
+    transition: opacity 0.1s ease;
+}
+
+.hand-pixel.touching {
+    opacity: 0.6 !important; /* Modificato: mantiene 60% */
+    filter: brightness(1.5);
+}
+
+@keyframes glitch {
+  0% { transform: translate(0, 0); filter: brightness(1); }
+  25% { transform: translate(-1px, 1px); filter: brightness(1.2); }
+  50% { transform: translate(1px, -1px); filter: brightness(0.8); }
+  75% { transform: translate(-1px, -1px); filter: brightness(1.1); }
+  100% { transform: translate(0, 0); filter: brightness(1); }
+}
+
+@keyframes tremble {
+  0% { transform: translateX(0); }
+  33% { transform: translateX(-1px); }
+  66% { transform: translateX(1px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes stuckGlitch {
+  0% { transform: translate(0, 0) scaleX(1); opacity: 0.42 !important; } /* Modificato: 0.7*0.6 */
+  25% { transform: translate(-1px, 0) scaleX(1); opacity: 0.48 !important; } /* Modificato: 0.8*0.6 */
+  50% { transform: translate(1px, 0) scaleX(-1); opacity: 0.3 !important; } /* Modificato: 0.5*0.6 */
+  75% { transform: translate(0, -1px) scaleX(-1); opacity: 0.42 !important; } /* Modificato: 0.7*0.6 */
+  100% { transform: translate(0, 0) scaleX(1); opacity: 0.42 !important; } /* Modificato: 0.7*0.6 */
+}
+
+/* Aggiungi queste regole per garantire l'opacità ovunque */
+#grid-container * {
+  opacity: 0.6 !important; /* Regola di fallback globale */
+}
+
+/* Regola specifica per le esclamazioni durante le animazioni */
+.exclamation.animated {
+  opacity: 0.6 !important;
+}
+
+/* Regola specifica per i personaggi durante le collisioni */
+.character.colliding {
+  opacity: 0.6 !important;
+}

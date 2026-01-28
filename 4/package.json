@@ -1,0 +1,63 @@
+{
+  "name": "kernel-fragment",
+  "version": "1.0.0",
+  "description": "Un frammento di sistema operativo che ha preso vita",
+  "main": "main.js",
+  "author": "Your Name",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
+  },
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "systeminformation": "^5.27.11"
+  },
+  "build": {
+    "appId": "com.kernel.fragment",
+    "productName": "Kernel Fragment",
+    "files": [
+      "**/*",
+      "!**/*.md",
+      "!.git",
+      "!node_modules"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon-app.png"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "assets/icon-app.png",
+      "target": ["dmg", "zip"]
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "assets/icon-app.png",
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Kernel Fragment</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .character {
+      will-change: transform;
+      backface-visibility: hidden;
+      perspective: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div id="grid-container"></div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  
+  <!-- AGGIUNTA: Audio Pool Manager -->
+  <script src="audio-pool.js"></script>
+  
+  <script src="behavior-cycle.js"></script>
+  <script src="audio-detector.js"></script>
+  <script src="keyboard-detector.js"></script>
+  <script src="hand-detector.js"></script>
+  <script src="character.js"></script>
+  <script src="cpu-monitor.js"></script>
+</body>
+</html>
